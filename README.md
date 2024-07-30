@@ -1,73 +1,96 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Sistema de Agenda de Salas de Cine
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Este proyecto es un sistema de agenda para una sala de cine, desarrollado con NestJS. El sistema permite gestionar reservas de boletos para una película en varias salas, con diferentes horarios y aforos.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Requisitos del Proyecto
 
-## Description
+### Condiciones Generales
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- **Película**: Solo hay una película disponible en todas las salas.
+- **Salas**: El cine tiene 3 salas disponibles: Sala A, Sala B y Sala C.
+- **Horarios**: Las salas tienen los siguientes horarios: 3:00 PM, 5:00 PM y 7:00 PM.
+- **Aforo**:
+  - Sala A: 20 personas.
+  - Sala B: 20 personas.
+  - Sala C: 30 personas.
+- **Funcionamiento**: El cine está abierto todos los días.
 
-## Installation
+### Modelos
 
-```bash
-$ pnpm install
-```
+1. **Booker**: Representa a la persona que adquiere el boleto. Está relacionado con un booking.
+2. **Booking**: Representa la agenda para una sala. Está relacionado con una sala, un horario y un asiento.
+3. **Auditorium**: Representa cada sala en el cine. Tiene una cantidad de horarios disponibles y un número de asientos.
+4. **Seat**: Representa un asiento numerado dentro de una sala. Está relacionado con un booker y pertenece a una sala.
+5. **Movie**: Representa la película disponible.
 
-## Running the app
+### Casos de Uso
 
-```bash
-# development
-$ pnpm run start
+1. **Inicialización**: Configuración inicial de la aplicación con la información necesaria.
+2. **Autenticación**: Implementar autenticación para el API utilizando JWT.
+3. **Disponibilidad**: Endpoint para ver la disponibilidad de salas y horarios.
+4. **Crear Booking**: Endpoint para crear un booking en la sala y horario elegido, especificando el asiento y el correo electrónico del booker. El usuario debe tener una cuenta para reservar.
+5. **Confirmación de Booking**: Endpoint para consultar la confirmación del booking con detalles: correo electrónico, código de reserva, sala seleccionada, horario seleccionado y asiento seleccionado.
+6. **Consultar Bookings**: Endpoint para consultar todos los bookings del usuario.
 
-# watch mode
-$ pnpm run start:dev
+## Instalación
 
-# production mode
-$ pnpm run start:prod
-```
+1. **Clonar el repositorio**
 
-## Test
+    ```bash
+    git clone git@github.com:cesarsw-a11/cine-agenda-backend.git
+    ```
 
-```bash
-# unit tests
-$ pnpm run test
+2. **Instalar dependencias**
 
-# e2e tests
-$ pnpm run test:e2e
+    ```bash
+    cd cine-agenda-backend
+    pnpm install (o el empaquedor de tu preferencia)
+    ```
 
-# test coverage
-$ pnpm run test:cov
-```
+3. **Configurar el entorno**
 
-## Support
+    Crea un archivo `.env` y configura las variables de entorno necesarias, como las credenciales de la base de datos para llevar a cabo la conexión.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+4. **Ejecutar la aplicación**
 
-## Stay in touch
+    ```bash
+    pnpm run start:dev
+    ```
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## Estructura del Proyecto
 
-## License
+- **src/**: Contiene todos los módulos de la aplicación.
+  - **auth/**: Módulo de autenticación.
+  - **bookings/**: Módulo para la gestión de reservas.
+  - **auditoriums/**: Módulo para la gestión de salas.
+  - **seats/**: Módulo para la gestión de asientos.
+  - **movies/**: Módulo para la gestión de películas.
+  - **booker/**: Módulo para la gestión de las personas que van agendar.
+  - **prisma/**: Módulo para llevar a cabo la conexión a la base de datos mediante el ORM de prisma.
 
-Nest is [MIT licensed](LICENSE).
+## Endpoints
+
+### 1. **Autenticación**
+
+- **POST /auth/login**: Inicia sesión y recibe un token JWT, el cual permitirá llevar a cabo la autenticacion de las rutas protegidas.
+- **POST /auth/register**: Registra un nuevo usuario.
+
+### 2. **Disponibilidad**
+
+- **GET /auditoriums/availability**: Obtiene la disponibilidad de salas y horarios.
+
+### 3. **Crear Booking**
+
+- **POST /bookings**: Crea un nuevo booking. Requiere autenticación.
+
+### 4. **Confirmación de Booking**
+
+- **GET /bookings/:bookingId**: Obtiene la confirmación de un booking específico.
+
+### 5. **Consultar Bookings**
+
+- **GET /bookings/user**: Obtiene todos los bookings del usuario autenticado.
+
+## Autenticación
+
+Este proyecto utiliza JWT (JSON Web Token).
